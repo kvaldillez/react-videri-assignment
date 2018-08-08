@@ -1,0 +1,66 @@
+{
+    "extends": ["airbnb", "prettier/react"],
+    "plugins": ["prettier"],
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "env": {
+        "es6": true,
+        "browser": true,
+        "jasmine": true
+    },
+    "rules": {
+        "arrow-parens": ["error", "as-needed"],
+        "comma-dangle": [
+            "error",
+            {
+                "arrays": "only-multiline",
+                "objects": "only-multiline",
+                "imports": "only-multiline",
+                "exports": "only-multiline",
+                "functions": "never"
+            }
+        ],
+        "function-paren-newline": ["error", "consistent"],
+        "global-require": ["off"],
+        "no-mixed-operators": ["error", {
+            "groups": [
+                ["*", "/"]
+            ]
+        }],
+        "react/jsx-filename-extension": ["warn", {
+            "extensions": [".js"]
+        }],
+        "react/forbid-prop-types": ["off"],
+        "react/no-array-index-key": ["warn"],
+        "react/no-unused-prop-types": ["warn"],
+        "react/require-default-props": ["off"],
+        "prettier/prettier": [
+            "error",
+            {
+                "singleQuote": true,
+                "trailingComma": "es5"
+            }
+        ],
+        "jsx-a11y/anchor-is-valid": [
+            "error",
+            {
+                "components": ["Link"],
+                "specialLink": ["to", "hrefLeft", "hrefRight"],
+                "aspects": ["noHref", "invalidHref", "preferButton"]
+            }
+        ],
+        "object-curly-newline": ["warn", {
+            "consistent": true
+        }],
+        "jsx-a11y/click-events-have-key-events": ["off"],
+        "jsx-a11y/mouse-events-have-key-events": ["off"],
+        "jsx-a11y/no-noninteractive-element-interactions": ["off"],
+        "jsx-a11y/no-static-element-interactions": ["off"]
+    }
+}

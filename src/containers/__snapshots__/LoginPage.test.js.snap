@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginPage renders without crashing 1`] = `
+<LoginPage
+  displayErrorMessage={false}
+  errorMessage=""
+  formControlsArray={
+    Array [
+      Object {
+        "config": Object {
+          "placeholder": "USERNAME",
+          "touched": false,
+          "type": "email",
+          "valid": false,
+          "validation": Object {
+            "isEmail": true,
+            "required": true,
+          },
+          "value": "",
+        },
+        "id": "username",
+      },
+      Object {
+        "config": Object {
+          "placeholder": "PASSWORD",
+          "touched": false,
+          "type": "password",
+          "valid": false,
+          "validation": Object {
+            "isPassword": true,
+            "minLength": 8,
+            "required": true,
+          },
+          "value": "",
+        },
+        "id": "password",
+      },
+    ]
+  }
+  handleChangeInput={[Function]}
+  handleSubmitForm={[Function]}
+  loading={false}
+/>
+`;
