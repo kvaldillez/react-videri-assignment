@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "iojs"
+  - "9"
+deploy:
+  provider: heroku
+  api_key:
+    secure: "EitRU8qL8oeN7x5P/KyU9m4l09uVDydHwDW9pWVn3nogrw1kxxgXX39ToRax6lE8NprPzExLUW7A6IwAfEDmtar4t/I6ylqR5LqKbuDDGOyphwV/ogCbDVZWGMyd+m8p7s9ww1tUEJDjiSWC6b22jSUQTkE2FN52kS4VZJlAdAcQUepa5GGsjYgq0hBAo1szuwNH4EWNU1DhOdPGK853AfnhnhvC09dAn0q4LQh6r5YTadel4oCX8XN4/7UNVtHgCgqq/z2hSZVDMP5AIHbgtuBTtN5l9IINEwcR3WtfFC+hdKv9V7dxgSDl3aPQzzEGfxi6W6lzLb9/7490ediNB2j0cpKNZViNplwgi0udu//WMSda11BV55+bORM4QrS/ycoZYLC6M3ipFKEv6hmWCBfc0bV3V1nGwk0nb5roYy4YK0/Am8qJHmCLItsX7Yjd0Y3hU6ogKkwuRAw1qFserMvQHCX6l3UuJu2OmaFF6L6nt29XPnowkB9wiGyJSnty3bdoKxSRDVSyCeIdLLuXyUP5CH7dxLljMSy4ag0Zw/fZ6K67dXnW2Ao9VfjGkU7YLpfMj7lhOendWDbeDe2Sid6va3CL2RrIUD4znitrsnODw0JK9TMkHvEUBgXLoclw7l2BNAOoMfJzoBHH9aG69gXGNK+NrkKZSEuKj0PwU9k="
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version version-number
+  - export PATH="$HOME/.yarn/bin:$PATH"
+  - brew update && brew bundle
+cache:
+  yarn: true
