@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import LoginPageComponent from '../components/LoginPage';
 import { checkValidity } from '../utilities';
 import { loginUser } from '../store/actions';
+import Spinner from '../components/UI/Spinner';
 
 export class LoginPageContainer extends Component {
   static propTypes = {
     loading: PropTypes.bool.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
   };
 
   state = {
@@ -41,7 +44,16 @@ export class LoginPageContainer extends Component {
     errorMessage: '',
   };
 
-  componentDidMount() {}
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      this.state.displayErrorMessage !== nextState.displayErrorMessage ||
+      this.state.errorMessage !== nextState.errorMessage ||
+      this.state.formControls.username !== nextState.formControls.username ||
+      this.state.formControls.password !== nextState.formControls.password ||
+      this.props.isLoggedIn !== nextProps.isLoggedIn ||
+      this.props.loading !== nextProps.loading
+    );
+  }
 
   handleChangeInput = (e, key) => {
     const updatedControls = {
@@ -80,36 +92,45 @@ export class LoginPageContainer extends Component {
     if (submitForm) {
       this.setState({ displayErrorMessage: false });
       this.props.loginUser(this.state.formControls.username.value);
+      this.props.history.push('/account');
     } else {
       this.setState({ displayErrorMessage: true });
     }
   };
 
   render() {
-    const formControlsArray = [];
+    let login = <Spinner />;
 
-    for (const key in this.state.formControls) {
-      formControlsArray.push({
-        id: key,
-        config: this.state.formControls[key],
-      });
+    if (!this.props.loading && this.props.isLoggedIn) {
+      login = <Redirect to="/account" />;
+    } else if (!this.props.loading) {
+      const formControlsArray = [];
+
+      for (const key in this.state.formControls) {
+        formControlsArray.push({
+          id: key,
+          config: this.state.formControls[key],
+        });
+      }
+
+      login = (
+        <LoginPageComponent
+          formControlsArray={formControlsArray}
+          displayErrorMessage={this.state.displayErrorMessage}
+          errorMessage={this.state.errorMessage}
+          handleSubmitForm={this.handleSubmitForm}
+          handleChangeInput={this.handleChangeInput}
+        />
+      );
     }
 
-    return (
-      <LoginPageComponent
-        loading={this.props.loading}
-        formControlsArray={formControlsArray}
-        displayErrorMessage={this.state.displayErrorMessage}
-        errorMessage={this.state.errorMessage}
-        handleSubmitForm={this.handleSubmitForm}
-        handleChangeInput={this.handleChangeInput}
-      />
-    );
+    return login;
   }
 }
 
 const mapStateToProps = state => ({
   loading: state.loading,
+  isLoggedIn: state.isLoggedIn,
 });
 
 const mapDispatchToProps = dispatch => ({

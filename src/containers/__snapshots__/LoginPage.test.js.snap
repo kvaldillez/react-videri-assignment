@@ -39,6 +39,5 @@ exports[`LoginPage renders without crashing 1`] = `
   }
   handleChangeInput={[Function]}
   handleSubmitForm={[Function]}
-  loading={false}
 />
 `;

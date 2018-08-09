@@ -4,10 +4,6 @@ import styled from 'styled-components';
 
 import bgImage from '../../assets/images/bg-login.png';
 
-// import { getHeader } from '../../store/actions/index';
-
-// import Header from '../../components/Header/Header';
-
 const Container = styled.div`
   height: 100vh;
   background: url(${bgImage}) no-repeat center;
@@ -60,7 +56,7 @@ const Input = styled.input`
   margin: 0 0 2rem;
   padding: 0 1.5rem;
   height: 4.5rem;
-  border: 2px solid #ddd;
+  border: 0.2rem solid #ddd;
   font-size: 1.4rem;
 
   ::placeholder {

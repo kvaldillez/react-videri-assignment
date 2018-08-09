@@ -1,6 +1,21 @@
 import { takeEvery, put, all, call } from 'redux-saga/effects';
+import axios from 'axios';
 
 import * as actions from '../actions';
+
+const fetchPhotosByType = query =>
+  axios.get(
+    `https://pixabay.com/api/?key=${
+      process.env.REACT_APP_PIXABAY_API_KEY
+    }&safesearch=true&per_page=50${query}`
+  );
+
+const fetchVideosByType = query =>
+  axios.get(
+    `https://pixabay.com/api/videos/?key=${
+      process.env.REACT_APP_PIXABAY_API_KEY
+    }&safesearch=true&per_page=50${query}`
+  );
 
 function* checkUserStateSaga() {
   const userId = yield localStorage.getItem('userId');
@@ -59,10 +74,33 @@ function* watchLogoutUserSaga() {
   yield takeEvery(actions.LOGOUT_USER.REQUEST, logoutUserSaga);
 }
 
+function* getMediaSaga({ media, query }) {
+  let q = '';
+  if (query) {
+    q = `&q=${encodeURIComponent(query)}`;
+  }
+  try {
+    if (media === 'photos') {
+      const response = yield call(fetchPhotosByType, q);
+      yield put(actions.getMedia.success(response.data));
+    } else if (media === 'videos') {
+      const response = yield call(fetchVideosByType, q);
+      yield put(actions.getMedia.success(response.data));
+    }
+  } catch (error) {
+    yield put(actions.getMedia.failure(error));
+  }
+}
+
+function* watchGetMediaSaga() {
+  yield takeEvery(actions.GET_MEDIA.REQUEST, getMediaSaga);
+}
+
 export default function* rootSaga() {
   yield all([
     watchCheckUserStateSaga(),
     watchLoginUserSaga(),
     watchLogoutUserSaga(),
+    watchGetMediaSaga(),
   ]);
 }
