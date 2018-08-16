@@ -99,7 +99,7 @@ export class LoginPageContainer extends Component {
   };
 
   render() {
-    let login = <Spinner />;
+    let login = <Spinner bgColor={'#fff'} />;
 
     if (!this.props.loading && this.props.isLoggedIn) {
       login = <Redirect to="/account" />;

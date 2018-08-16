@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-import folder from '../../../assets/images/folder_off@2x.png';
-import profileImage from '../../../assets/images/profile-image.jpg';
+import folder from '../../assets/images/folder_off@2x.png';
+import folderSelected from '../../assets/images/folder_on@2x.png';
+import profileImage from '../../assets/images/profile-image.jpg';
 
 const Nav = styled.nav`
   position: fixed;
@@ -89,6 +90,14 @@ const Secondary = styled.div`
   a {
     text-decoration: none;
     color: #000;
+
+    &.active {
+      color: #2492b5;
+
+      span {
+        background-image: url(${folderSelected});
+      }
+    }
   }
 `;
 
@@ -103,7 +112,7 @@ const Folder = styled.span`
   min-width: 4.4rem;
 `;
 
-const Navigation = ({ user, folders, getMedia }) => (
+const Navigation = ({ user, folders }) => (
   <Nav>
     <Main>
       <Icon />
@@ -120,13 +129,13 @@ const Navigation = ({ user, folders, getMedia }) => (
     </Main>
     <Secondary>
       {folders.map(folder => (
-        <Link
+        <NavLink
           to={`/account/${folder.url}`}
+          activeClassName="active"
           key={folder.title}
-          onClick={() => getMedia(folder.media, folder.query)}
         >
           <Folder>{folder.title}</Folder>
-        </Link>
+        </NavLink>
       ))}
     </Secondary>
   </Nav>

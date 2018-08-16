@@ -8,7 +8,8 @@ const Router = ({ isLoggedIn }) => {
   const routes = (
     <Switch>
       <Route path="/" exact component={LoginPage} />
-      <Route path="/account" component={AccountPage} />
+      <Route path="/account" exact component={AccountPage} />
+      <Route path="/account/:folder" component={AccountPage} />
       <Route component={NoMatch} />
     </Switch>
   );

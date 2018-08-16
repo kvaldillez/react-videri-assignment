@@ -25,7 +25,7 @@ const Loader = styled.div`
   &::before {
     width: 5.2em;
     height: 10.2em;
-    background: #fff;
+    background: ${({ bgColor }) => `${bgColor}`};
     border-radius: 10.2em 0 0 10.2em;
     top: -0.1em;
     left: -0.1em;
@@ -38,7 +38,7 @@ const Loader = styled.div`
   &::after {
     width: 5.2em;
     height: 10.2em;
-    background: #fff;
+    background: ${({ bgColor }) => `${bgColor}`};
     border-radius: 0 10.2em 10.2em 0;
     top: -0.1em;
     left: 5.1em;
@@ -71,8 +71,8 @@ const Loader = styled.div`
   }
 `;
 
-const Spinner = () => {
-  return <Loader>Loading...</Loader>;
+const Spinner = ({ bgColor }) => {
+  return <Loader bgColor={bgColor}>Loading...</Loader>;
 };
 
 export default Spinner;
