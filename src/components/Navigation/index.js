@@ -108,6 +108,7 @@ const Folder = styled.span`
   background-size: auto 4rem;
   display: block;
   line-height: 1;
+  font-size: 1.4rem;
   text-align: center;
   min-width: 4.4rem;
 `;
