@@ -4,7 +4,15 @@ const initialState = {
   loading: true,
   isLoggedIn: false,
   user: null,
-  data: null,
+  folders: [
+    { title: 'Clouds', url: 'clouds', media: 'photos', query: 'clouds' },
+    { title: 'Cars', url: 'cars', media: 'photos', query: 'cars' },
+    { title: 'Urban', url: 'urban', media: 'videos', query: 'urban' },
+  ],
+  media: {
+    loading: false,
+    content: [],
+  },
 };
 
 function loginUserSuccess(state, action) {
@@ -41,6 +49,28 @@ function logoutUserFailure(state) {
   };
 }
 
+function getMediaRequest(state) {
+  return {
+    ...state,
+    media: {
+      loading: true,
+      ...state.media,
+    },
+  };
+}
+
+function getMediaSuccess(state, action) {
+  const { data } = action;
+
+  return {
+    ...state,
+    media: {
+      loading: false,
+      content: [...data.hits],
+    },
+  };
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.LOGIN_USER.SUCCESS:
@@ -54,6 +84,12 @@ const reducer = (state = initialState, action) => {
 
     case ActionTypes.LOGOUT_USER.FAILURE:
       return logoutUserFailure(state);
+
+    case ActionTypes.GET_MEDIA.REQUEST:
+      return getMediaRequest(state);
+
+    case ActionTypes.GET_MEDIA.SUCCESS:
+      return getMediaSuccess(state, action);
 
     default:
       return state;

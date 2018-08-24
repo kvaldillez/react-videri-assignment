@@ -1,16 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 import baseStyles from './baseStyles';
 import { checkUserState } from './store/actions';
 import Router from './router';
-
-const AppContainer = styled.div`
-  width: 100%;
-`;
 
 class App extends Component {
   static propTypes = {
@@ -26,9 +21,10 @@ class App extends Component {
     baseStyles();
 
     return (
-      <AppContainer>
+      <Fragment>
+        {this.props.children}
         <Router isLoggedIn={this.props.isLoggedIn} />
-      </AppContainer>
+      </Fragment>
     );
   }
 }
